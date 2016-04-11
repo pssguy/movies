@@ -39,10 +39,24 @@ dashboardPage(skin="yellow",
       "gender",
       
           box( width=6,
-               "test"
+               status = "success", solidHeader = TRUE,
+               collapsible = T,collapsed = F,
+               title="Percent words spoken by female characters",
+               footer = "Select Range to Zoom and hover for details",
+               plotlyOutput("genderWordsChart")
                
               
-          )
+          ),
+      box( width=6,
+           status = "success", solidHeader = TRUE,
+           collapsible = T,collapsed = F,
+           title="Major Characters",
+           #footer = "Select Range to Zoom and hover for details",
+           h3(textOutput("genderWordsTitle")),
+           DT::dataTableOutput("genderWordsTable")
+           
+           
+      )
         )
       )
     )
