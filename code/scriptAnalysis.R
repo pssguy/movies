@@ -41,14 +41,20 @@ gender$decade <-
       "2010s"
     )
   )
+
+gender <- gender %>% 
+  mutate(scriptLink=paste0("<a href=\"",link,"\" target=\"_blank\">","Script","</a>")) %>% 
+  mutate(movieLink=paste0("http://www.imdb.com/title/",imdb_id,"/")) %>% 
+  mutate(imdbLink=paste0("<a href=\"",movieLink,"\" target=\"_blank\">",title,"</a>")) 
+
 glimpse(gender)
 
 
 
 output$genderWordsTable <- renderPlotly({
   gender %>%
-    select(title,all_Words=all,f_pc,year,gross_adjusted) %>% 
-     DT::datatable(class='compact stripe hover row-border order-column',rownames=FALSE,options= list(paging = TRUE, searching = TRUE,info=FALSE))
+    select(imdbLink,all_Words=all,f_pc,year,gross_adjusted,scriptLink) %>% 
+     DT::datatable(class='compact stripe hover row-border order-column',rownames=FALSE,escape=FALSE,options= list(paging = TRUE, searching = TRUE,info=FALSE))
 })
 
 output$genderWordsChart <- renderPlotly({
